@@ -3,7 +3,7 @@
     public class Airplane : Vehicle
     {
         public uint NoOfSeats { get; set; }
-        public Airplane(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type, uint NoOfSeats )
+        public Airplane(string RegistrationNumber, string Color, uint NoOfWheels, string Type, uint NoOfSeats )
             :base(RegistrationNumber,Color,NoOfWheels,Type)
         {
             this.NoOfSeats = NoOfSeats;

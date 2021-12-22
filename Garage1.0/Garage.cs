@@ -4,11 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Garage1._0
 {
-    public class Garage<T> : IEnumerable<T>,IHandler<T> where T : IVehicle
+    public class Garage<T> : IEnumerable<T> where T : IVehicle
     {
         private static  T[] garage;
         private static IUI ui;
-        private static int counter = 0;
         public void Run()
         {
             garage = new T[5];
@@ -115,12 +114,11 @@ namespace Garage1._0
 
         private static void ParkCar()
         {
-            var (RegistrationNumber, Color, NoOfWheels) = GetCommonFeatures();
+             (string RegistrationNumber, string Color, uint NoOfWheels) = GetCommonFeatures();
             uint NE = ui.AskForUIntInput("Enter Number of Engines");
-            var car = new Car(RegistrationNumber, Color, NoOfWheels, VehicleType.Car, NE);
-            
-            ParkVehicle(car);
-
+            Car car = new Car(RegistrationNumber,Color,NoOfWheels,"Car",NE);
+            var c = new Garage<Car>();
+            c.ParkVehicle(car);
             ui.PrintString("Your Car is Successfully Parked");
         }
 
@@ -177,8 +175,8 @@ namespace Garage1._0
 
         public void ParkVehicle(T item)
         {
-            garage[counter] = item;
-            counter++;
+            garage[0] = item;
+            //counter++;
         }
 
         public void PickUpVehicle(T item)
@@ -186,9 +184,6 @@ namespace Garage1._0
             throw new NotImplementedException();
         }
 
-        T IHandler<T>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

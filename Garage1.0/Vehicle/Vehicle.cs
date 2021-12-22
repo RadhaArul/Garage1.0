@@ -5,8 +5,8 @@
         public string RegistrationNumber { get; set; }
         public string Color { get; set; }
         public uint NoOfWheels { get; set; }
-        public VehicleType Type { get; set; }
-        public Vehicle(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type)
+        public string Type { get; set; }
+        public Vehicle(string RegistrationNumber, string Color, uint NoOfWheels, string Type)
         {
             this.RegistrationNumber = RegistrationNumber;
             this.Color = Color;
