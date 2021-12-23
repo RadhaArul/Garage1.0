@@ -27,7 +27,27 @@ namespace Garage1._0
 
             return answer;
         }
+        public int AskForFuelInput()
+        {
+            bool success = false;
+            int answer;
 
+            do
+            {
+                answer = int.Parse(Console.ReadLine());
+
+                if (answer<1 || answer>2)
+                {
+                    PrintString($"You must enter a valid number between 1 and 2");
+                }
+                else
+                {
+                    success = true;
+                }
+
+            } while (!success);
+            return answer;
+        }
         public uint AskForUIntInput(string prompt)
         {
             do
@@ -37,7 +57,10 @@ namespace Garage1._0
 
             } while (true);
         }
-
+        public void Rkey()
+        {
+            Console.ReadKey();
+        }
 
         public void PrintString(string message)
         {

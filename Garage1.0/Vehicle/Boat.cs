@@ -3,7 +3,7 @@
     public class Boat : Vehicle
     {
         public uint Length { get; set; }
-        public Boat(string RegistrationNumber, string Color, uint NoOfWheels, string Type, uint length)
+        public Boat(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type, uint length)
             : base(RegistrationNumber, Color, NoOfWheels, Type)
         {
             this.Length = length;

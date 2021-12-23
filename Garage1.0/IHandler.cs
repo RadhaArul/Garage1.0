@@ -9,7 +9,7 @@ namespace Garage1._0
         public void ParkVehicle(T item);
         public void PickUpVehicle(T item);
         T GetAll();
-        T GetByRegistrationNo(int id);
+        T GetByRegistrationNo(T[] item, string id);
         T GetByType(VehicleType type);
         T GetByColor(string color);
         T GetByWheels(int wheels);

@@ -2,9 +2,9 @@
 {
     public interface IVehicle
     {
-        string RegistrationNumber { get; set; }
-        string Color { get; set; }
-        uint NoOfWheels { get; set; }
-        string Type { get; set; }
+        string RegistrationNumber { get; }
+        string Color { get; }
+        uint NoOfWheels { get; }
+        VehicleType Type { get; }
     }
 }

@@ -11,5 +11,7 @@ namespace Garage1._0
         string AskForStrInput(string prompt);
         uint AskForUIntInput(string prompt);
         void PrintString(string message);
+        int AskForFuelInput();
+        void Rkey();
     }
 }

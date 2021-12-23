@@ -2,22 +2,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Garage1._0
 {
     public class Garage<T> : IEnumerable<T> where T : IVehicle
     {
-        private static  T[] garage;
+        private static T[] garage = new T[2];
+        private static int GarageFull = 2;
         private static IUI ui;
+        IHandler<T> obj;
+        public static int counter { get; protected set; }
+        public T this[int index] => garage[index];
+        public static int GarageCount;
         public void Run()
         {
-            garage = new T[5];
+            counter = 0;
+            
             ui = new ConsoleUI();
             do
             {
+                Console.Clear();
                 MainMenu();
                 Input();
             } while (true);
         }
+
         private static void Input()
         {
             string UserInput = ui.AskForStrInput("Enter your Choice");
@@ -32,17 +42,19 @@ namespace Garage1._0
                     break;
                 case "3":
                     SearchMenu();
+                    SearchInput();
                     break;
                 case "0":
                     Environment.Exit(0);
                     break;
                 default:
-                    ui.PrintString("Invalid Input! Try Again");
+                    ui.PrintString("Invalid Input! Press Enter to Try Again");
+                    ui.Rkey();
                     break;
             }
         }
 
-
+        
 
         private static void InstallGarage()
         {
@@ -66,6 +78,48 @@ namespace Garage1._0
             ui.PrintString("5. View by No of Wheels");
             ui.PrintString("0. Go Back to MainMenu");
         }
+        private static void SearchInput()
+        {
+            string input = ui.AskForStrInput("Enter Your Choice");
+            switch (input)
+            {
+                case "1":
+                    ViewAll();
+                    break;
+                case "2":
+                case "3":
+                    Garage<T> o=new Garage<T>();
+                    var veh = o.GetByRegistrationNo(garage, "a12");
+                    Console.WriteLine(veh.ToString());
+                    break;
+                case "0":
+                    break;
+                default:
+                    ui.PrintString("Invalid Input! Press Enter to Try Again");
+                    ui.Rkey();
+                    break;
+            }
+
+        }
+
+        private static void ViewAll()
+        {
+            ui.PrintString("Parked vehicles are");
+            //foreach (var item in garage)
+            //{
+            //    if (item != null) ui.PrintString(item.ToString());
+            //}
+            for (int i = 0; i < 2; i++)
+            {
+                if (garage[i] == null)
+                    ui.PrintString($"{i}.\tFree space");
+                else
+                    ui.PrintString($"{i}.\t{garage[i]}");
+            }
+            
+            ui.Rkey();
+        }
+
         private static void ManageMenu()
         {
             ui.PrintString("1. Park Vehicle/Check In");
@@ -75,16 +129,25 @@ namespace Garage1._0
         private static void ManageInput()
         {
             string input = ui.AskForStrInput("Enter Your Choice");
+            
             switch (input)
             {
                 case "1":
-                    ShowVehicle();
+                     GarageCount = Array.FindAll(garage, s => s== null).Length;
+                    if (GarageCount>0)
+                        ShowVehicle();
+                    else
+                    {
+                        ui.PrintString("Garage Full... There is No Parking Slot Press Enter to go back");
+                        ui.Rkey();
+                    }
                     break;
                 case "2":
                 case "0":
                     break;
                 default:
-                    ui.PrintString("Invalid Input! Try Again");
+                    ui.PrintString("Invalid Input! Press Enter to Try Again");
+                    ui.Rkey();
                     break;
             }
         }
@@ -103,30 +166,72 @@ namespace Garage1._0
                 case "1":
                     ParkCar();
                     break;
+                case "2":
+                    ParkBus();
+                    break;
+                case "3":
+                    ParkBoat();
+                    break;
+                case "4":
+                    ParkMotorcycle();
+                    break;
+                case "5":
+                    ParkAirplane();
+                    break;
                 case "0":
-                    MainMenu();
                     break;
                 default:
-                    ui.PrintString("Invalid Input! Try Again");
+                    ui.PrintString("Invalid Input! Press Enter to Try Again");
+                    ui.Rkey();
                     break;
             }
         }
 
+        private static void ParkAirplane()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ParkMotorcycle()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ParkBoat()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ParkBus()
+        {
+            (string RegistrationNumber, string Color, uint NoOfWheels) = GetCommonFeatures();
+            ui.PrintString("Enter Fuel Type");
+            foreach (var FT in Enum.GetValues(typeof(FuelType)))
+                ui.PrintString($"{(int)FT} - {FT}");
+            int Ftype=ui.AskForFuelInput();
+            Bus bus = new Bus(RegistrationNumber, Color, NoOfWheels, VehicleType.Bus, (FuelType)Ftype);
+            var b = new Garage<Bus>();
+            b.ParkVehicle(bus);
+            ui.PrintString("Your Bus is Successfully Parked");
+            ui.Rkey();
+        }
+
         private static void ParkCar()
         {
-             (string RegistrationNumber, string Color, uint NoOfWheels) = GetCommonFeatures();
+            (string RegistrationNumber, string Color, uint NoOfWheels) = GetCommonFeatures();
             uint NE = ui.AskForUIntInput("Enter Number of Engines");
-            Car car = new Car(RegistrationNumber,Color,NoOfWheels,"Car",NE);
+            Car car = new Car(RegistrationNumber,Color,NoOfWheels,VehicleType.Car,NE);
             var c = new Garage<Car>();
             c.ParkVehicle(car);
             ui.PrintString("Your Car is Successfully Parked");
+            ui.Rkey();
         }
 
         private static (string, string, uint) GetCommonFeatures()
         {
-            string RegNo = ui.AskForStrInput("Registration Number:");
-            string Col = ui.AskForStrInput("Color :");
-            uint NofW = ui.AskForUIntInput("Number of Wheels:");
+            string RegNo = ui.AskForStrInput("Registration Number ");
+            string Col = ui.AskForStrInput("Color ");
+            uint NofW = ui.AskForUIntInput("Number of Wheels ");
             return (RegNo, Col, NofW);
         }
 
@@ -150,12 +255,12 @@ namespace Garage1._0
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return garage;
         }
 
-        public T GetByRegistrationNo(int id)
+        public T GetByRegistrationNo(T[] item, string id)
         {
-            throw new NotImplementedException();
+            return Array.Find(item, veh => veh.RegistrationNumber.ToUpper() == id.ToUpper());
         }
 
         public T GetByType(VehicleType type)
@@ -175,8 +280,9 @@ namespace Garage1._0
 
         public void ParkVehicle(T item)
         {
-            garage[0] = item;
-            //counter++;
+                garage[counter] = (T)item;
+                Console.WriteLine(garage[counter].ToString());
+                ++counter;
         }
 
         public void PickUpVehicle(T item)

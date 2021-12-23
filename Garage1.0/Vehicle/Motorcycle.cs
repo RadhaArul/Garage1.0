@@ -3,7 +3,7 @@
     public class Motorcycle : Vehicle
     {
         public string CylinderVolume { get; set; }
-        public Motorcycle(string RegistrationNumber, string Color, uint NoOfWheels, string Type, string cylinderVolume)
+        public Motorcycle(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type, string cylinderVolume)
            : base(RegistrationNumber, Color, NoOfWheels, Type)
         {
             this.RegistrationNumber = RegistrationNumber;

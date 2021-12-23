@@ -4,7 +4,7 @@
     {
         public uint NoOfEngine{ get; set; }
 
-        public Car(string RegistrationNumber, string Color, uint NoOfWheels, string Type, uint NoOfEngine)
+        public Car(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type, uint NoOfEngine)
             : base(RegistrationNumber, Color, NoOfWheels, Type)
         {
             this.RegistrationNumber = RegistrationNumber;
