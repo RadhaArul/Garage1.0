@@ -3,7 +3,7 @@
     public class Bus : Vehicle
     {
         public FuelType FuelType { get; set; }
-        public Bus(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type, FuelType fuelType)
+        public Bus(string RegistrationNumber, string Color, int NoOfWheels, VehicleType Type, FuelType fuelType)
             : base(RegistrationNumber, Color, NoOfWheels, Type)
         {
             this.FuelType = fuelType;

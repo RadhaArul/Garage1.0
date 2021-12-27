@@ -9,9 +9,9 @@ namespace Garage1._0
     interface IUI
     {
         string AskForStrInput(string prompt);
-        uint AskForUIntInput(string prompt);
+        int AskForIntInput(string prompt);
         void PrintString(string message);
-        int AskForFuelInput();
+        int AskForIntInputWithLimit(string prompt, int min, int max);
         void Rkey();
     }
 }

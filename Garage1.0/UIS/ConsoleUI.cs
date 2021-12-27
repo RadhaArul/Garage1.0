@@ -27,18 +27,20 @@ namespace Garage1._0
 
             return answer;
         }
-        public int AskForFuelInput()
+
+        public int AskForIntInputWithLimit(string prompt,int min,int max)
         {
             bool success = false;
             int answer;
 
             do
             {
+                PrintString($"{prompt}: ");
                 answer = int.Parse(Console.ReadLine());
 
-                if (answer<1 || answer>2)
+                if (answer < min || answer > max )
                 {
-                    PrintString($"You must enter a valid number between 1 and 2");
+                    PrintString($"You must enter a {prompt}");
                 }
                 else
                 {
@@ -46,14 +48,16 @@ namespace Garage1._0
                 }
 
             } while (!success);
+
             return answer;
         }
-        public uint AskForUIntInput(string prompt)
+        
+        public int AskForIntInput(string prompt)
         {
             do
             {
                 string input = AskForStrInput(prompt);
-                if (uint.TryParse(input, out uint answer)) return answer;
+                if (int.TryParse(input, out int answer)) return answer;
 
             } while (true);
         }

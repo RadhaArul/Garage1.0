@@ -1,0 +1,4 @@
+﻿Build started...
+1>------ Build started: Project: Garage.UnitTests, Configuration: Debug Any CPU ------
+1>Garage.UnitTests -> C:\Users\radha\Desktop\transfer\dotnetcourse\hw\Garage1.0\Garage.UnitTests\bin\Debug\net5.0\Garage.UnitTests.dll
+========== Build: 1 succeeded, 0 failed, 1 up-to-date, 0 skipped ==========

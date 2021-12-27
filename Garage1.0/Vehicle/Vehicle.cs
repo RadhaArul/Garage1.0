@@ -4,9 +4,9 @@
     {
         public string RegistrationNumber { get; set; }
         public string Color { get; set; }
-        public uint NoOfWheels { get; set; }
+        public int NoOfWheels { get; set; }
         public VehicleType Type { get; set; }
-        public Vehicle(string RegistrationNumber, string Color, uint NoOfWheels, VehicleType Type)
+        public Vehicle(string RegistrationNumber, string Color, int NoOfWheels, VehicleType Type)
         {
             this.RegistrationNumber = RegistrationNumber;
             this.Color = Color;
